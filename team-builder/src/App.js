@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { v4 as uuid } from 'uuid'
 import TeamMemberForm from './components/TeamMemberForm'
+import TeamMemberList from './components/TeamMemberList'
 import './App.css';
 
 const initialTeamList = [
@@ -42,7 +43,7 @@ function App() {
     }
 
     // Prevent form submission if required fields are blank
-    if (!newTeamMember.name) return
+    if (!newTeamMember.name || !newTeamMember.email || !newTeamMember.role) return
 
     fakeAxiosPost('https://reqres.in/api/users', newTeamMember)
       .then(res => {
@@ -74,6 +75,15 @@ function App() {
         update={updateForm}
         submit={submitForm}
      />
+
+      {
+        teamMembers.map(person => {
+          return (
+            <TeamMemberList key={person.id} details={person} />
+          )
+        })
+      }
+
     </div>
   );
 }
