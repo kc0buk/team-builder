@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { v4 as uuid } from 'uuid'
+import TeamMemberForm from './components/TeamMemberForm'
 import './App.css';
 
 const initialTeamList = [
@@ -36,6 +37,8 @@ function App() {
   const submitForm = () => {
     const newTeamMember = {
       name: formValues.name.trim(),
+      email: formValues.email.trim(),
+      role: formValues.role,
     }
 
     // Prevent form submission if required fields are blank
@@ -66,7 +69,11 @@ function App() {
 
   return (
     <div className="container">
-     
+     <TeamMemberForm
+        values={formValues}
+        update={updateForm}
+        submit={submitForm}
+     />
     </div>
   );
 }
